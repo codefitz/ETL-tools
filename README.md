@@ -1,7 +1,12 @@
 # Fork of PrivateGPT
 
-Created this fork to store a couple of scripts for bulk download of Confluence docs, and validate/quarantine some buggy PDFs that didn't work and caused GPT to throw an error.
+Created this fork to store a couple of scripts for bulk download of Confluence and Jira docs, and validate/quarantine some buggy PDFs that didn't work and caused GPT to throw an error.
 
 In order to run PrivateGPT on my M2 mac I needed to uninstall and reinstall pymupdf to the latest version as the version PrivateGPT used contains a bug that was compiled with the wrong architecture.
 
-`pip install --upgrade --force-reinstall pymupdf`
+`pip3 install --upgrade --force-reinstall pymupdf`
+
+To ingest HTML you need to update nltk, the easiest way is this:
+
+`python3 -m nltk.downloader all`
+https://github.com/imartinez/privateGPT/issues/345
