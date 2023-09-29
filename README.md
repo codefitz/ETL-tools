@@ -10,3 +10,8 @@ To ingest HTML you need to update nltk, the easiest way is this:
 
 `python3 -m nltk.downloader all`
 https://github.com/imartinez/privateGPT/issues/345
+
+# How 2's:
+
+[confluence_dl.py](./docs/confluence_dl.md)
+[confluence_dl.py](./docs/jira_dl.md)
