@@ -14,4 +14,5 @@ https://github.com/imartinez/privateGPT/issues/345
 # How 2's:
 
 [confluence_dl.py](./docs/confluence_dl.md)
-[confluence_dl.py](./docs/jira_dl.md)
+
+[jira_dl.py](./docs/jira_dl.md)
