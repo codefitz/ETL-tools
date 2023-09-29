@@ -30,7 +30,7 @@ Replace the placeholders with your Confluence username, password, and server URL
 2. Run the script using the following command:
 
    ```
-   python script_name.py [page_url] [--depth DEPTH]
+   python confluence_ld.py [page_url] [--depth DEPTH]
    ```
 
    - `page_url`: The URL of the Confluence page you want to download.

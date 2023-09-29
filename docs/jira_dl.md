@@ -38,13 +38,13 @@ project: "PROJECT_KEY"
 To download a specific issue, run the script with the `--issue` flag followed by the issue key:
 
 ```bash
-python jira_downloader.py --issue ISSUE_KEY
+python jira_dl.py --issue ISSUE_KEY
 ```
 
 Example:
 
 ```bash
-python jira_downloader.py --issue PROJ-123
+python jira_dl.py --issue PROJ-123
 ```
 
 ### Download All Issues from a Project
@@ -52,7 +52,7 @@ python jira_downloader.py --issue PROJ-123
 To download all issues from the project specified in `config.yaml`, simply run the script without the `--issue` flag:
 
 ```bash
-python jira_downloader.py
+python jira_dl.py
 ```
 
 ## Output
