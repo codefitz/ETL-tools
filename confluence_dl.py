@@ -10,6 +10,17 @@ from urllib.parse import urlsplit
 import yaml
 import re  # Importing Regular Expression library to sanitize filenames
 
+def read_config(file_path):
+    with open(file_path, 'r') as f:
+        return yaml.safe_load(f)
+
+config = read_config("config.yaml")
+USERNAME = config['username']
+PASSWORD = config['password']
+BASE_URL = config['confluence_server']
+LOGIN_URL = BASE_URL + "/dologin.action"
+EXPORT_URL = BASE_URL + "/spaces/flyingpdf/pdfpageexport.action"
+
 def sanitize_url(url):
     # Removing newlines, spaces, and tabs
     url = url.strip().replace("\n", "").replace("\t", "")
@@ -21,31 +32,7 @@ def sanitize_url(url):
 def sanitize_filename(filename):
     return re.sub(r'[\/:*?"<>|]', '', filename)
 
-def read_config(file_path):
-    with open(file_path, 'r') as f:
-        return yaml.safe_load(f)
-
-def main(page_url, depth):
-    config = read_config("config.yaml")
-    USERNAME = config['username']
-    PASSWORD = config['password']
-    BASE_URL = config['confluence_server']
-    LOGIN_URL = BASE_URL + "/dologin.action"
-    EXPORT_URL = BASE_URL + "/spaces/flyingpdf/pdfpageexport.action"
-
-    session = requests.Session()
-
-    login_data = {
-        'os_username': USERNAME,
-        'os_password': PASSWORD
-    }
-    response = session.post(LOGIN_URL, data=login_data)
-
-    if response.ok:
-        print("Logged in successfully!")
-    else:
-        print("Failed to log in.")
-        exit()
+def download_page_as_pdf(session, page_url):
 
     # Check if the URL is relative and make it absolute
     if not page_url.startswith('http'):
@@ -90,6 +77,36 @@ def main(page_url, depth):
 
     # Return links from this page
     return [a['href'] for a in soup.find_all('a', href=True) if 'viewpage.action?pageId=' in a['href'] or '/display/' in a['href']]
+
+def main(page_url, depth):
+
+    session = requests.Session()
+
+    login_data = {
+        'os_username': USERNAME,
+        'os_password': PASSWORD
+    }
+    response = session.post(LOGIN_URL, data=login_data)
+
+    if response.ok:
+        print("Logged in successfully!")
+    else:
+        print("Failed to log in.")
+        exit()
+
+    # Maintain a set of pages we've visited to avoid duplication
+    visited_pages = set()
+
+    # Download the main page and get its links
+    links_on_main_page = download_page_as_pdf(session, page_url)
+    visited_pages.add(page_url)
+
+    # If depth is 1, download directly linked pages
+    if depth == 1:
+        for link in links_on_main_page:
+            if link not in visited_pages:
+                download_page_as_pdf(session, link)
+                visited_pages.add(link)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Download a Confluence page and its directly linked pages as PDFs based on depth.")
