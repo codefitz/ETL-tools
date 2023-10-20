@@ -178,3 +178,4 @@ qms_docs/
 source_documents/*
 quarantine/*
 config.yaml
+knowledge_articles.json
