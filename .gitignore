@@ -159,3 +159,5 @@ source_documents/
 
 # MacOS
 .DS_Store
+*.xlsx
+opp_paths.csv
