@@ -1,3 +1,4 @@
+import argparse
 import pandas as pd
 import numpy as np
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
@@ -5,9 +6,14 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error
 import os
 
+parser = argparse.ArgumentParser(description="Generate FY26 forecasts")
+parser.add_argument("--data", required=True, help="Path to input Excel file")
+parser.add_argument("--output", required=True, help="Path for the output Excel file")
+args = parser.parse_args()
+
 # Load the Excel file with MultiIndex columns
 df = pd.read_excel(
-    r'C:\Users\...\GitHub\ETL-tools\data.xlsx',
+    args.data,
     header=[0, 1]
 )
 
@@ -102,7 +108,7 @@ forecasts.columns = [f'FY26_{month}' for month in forecast_months]
 #forecasts[['FY25_Dec', 'FY25_Jan', 'FY25_Mar']] *= 0.5  # 50% reduction
 
 # Save the forecasted data to a new Excel file
-output_file = r'C:\Users\...\GitHub\ETL-tools\FY25_Forecasts_from_Jan.xlsx'
+output_file = args.output
 forecasts.to_excel(output_file, sheet_name='FY26 Forecasts')
 
 print(f"Forecasts successfully saved to {output_file}")
