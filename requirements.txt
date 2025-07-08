@@ -1,0 +1,15 @@
+pandas
+numpy
+scikit-learn
+statsmodels
+matplotlib
+requests
+beautifulsoup4
+PyYAML
+simple-salesforce
+xlwings
+docxtopdf
+PyMuPDF
+jira
+openpyxl
+
