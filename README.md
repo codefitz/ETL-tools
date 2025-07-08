@@ -4,6 +4,14 @@ Initially created this repo with some scripts for bulk download of Confluence, J
 
 Created this new repo to store the scripts seperately.
 
+## Installation
+
+Install all Python dependencies with:
+
+```bash
+pip install -r requirements.txt
+```
+
 # Download Script How 2's:
 
 [confluence_dl.py](./docs/confluence_dl.md)
