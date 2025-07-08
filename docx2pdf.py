@@ -1,4 +1,15 @@
-from docxtopdf import convert
+import os
+import sys
+
+# Avoid name clash with the installed `docx2pdf` package when running this
+# script directly. Removing the script's directory from ``sys.path`` ensures
+# that ``from docx2pdf import convert`` loads the external package instead of
+# re-importing this file as a module.
+script_dir = os.path.abspath(os.path.dirname(__file__))
+if sys.path and sys.path[0] in ('', script_dir):
+    sys.path.pop(0)
+
+from docx2pdf import convert
 
 def docx_to_pdf(input_path, output_path=None):
     """
