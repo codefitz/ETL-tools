@@ -6,6 +6,16 @@ This repository contains various scripts for data extraction and processing. The
 
 Before running any script, copy the default configuration file and fill in your credentials:
 
+## Installation
+
+Install all Python dependencies with:
+
+```bash
+pip install -r requirements.txt
+```
+
+# Download Script How 2's:
+
 ```bash
 cp config_default.yaml config.yaml
 ```

@@ -1,10 +1,15 @@
+import argparse
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 import numpy as np
 
+parser = argparse.ArgumentParser(description="Predict future timesheet totals")
+parser.add_argument("--data", required=True, help="Path to the timesheet Excel file")
+parser.add_argument("--output", required=True, help="Path for the output Excel file")
+args = parser.parse_args()
+
 # Load the timesheet data
-file_path = r'C:\Users\86011919\...\GitHub\ETL-tools\\timesheets.xlsx'
-df = pd.read_excel(file_path)
+df = pd.read_excel(args.data)
 
 # Convert the 'Row Labels' column to datetime by extracting the start date of the range
 df['Row Labels'] = pd.to_datetime(df['Row Labels'].apply(lambda x: x.split(' - ')[0]), format='%d/%m/%Y')
@@ -48,7 +53,7 @@ predicted_df = pd.DataFrame(predictions, index=future_dates)
 predicted_df['Grand Total'] = predicted_df.sum(axis=1)
 
 # Save the predictions to a new Excel file
-output_file = r'C:\Users\86011919\...\GitHub\ETL-tools\\predicted_timesheets.xlsx'
+output_file = args.output
 predicted_df.to_excel(output_file)
 
 print(f"Predictions saved to {output_file}")
