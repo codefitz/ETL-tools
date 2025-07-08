@@ -9,7 +9,7 @@ import os
 def read_pdf(path: str) -> str:
     try:
         doc = fitz.open(path)
-    except fitz.fitz.FileDataError:
+    except fitz.FileDataError:
         print(f"Error: Unable to open or read the document '{path}'. It may be broken.")
         quarantine_file(path)
         return ""
