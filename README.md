@@ -11,6 +11,7 @@ Created this new repo to store the scripts seperately.
 [jira_dl.py](./docs/jira_dl.md)
 
 [salesforce_dl.py](./docs/salesforce_dl.md)
+[forecast scripts](./docs/forecast_scripts.md)
 
 # privateGPT - primordial
 
